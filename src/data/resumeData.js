@@ -87,24 +87,46 @@ export const resumeData = {
     {
       id: "water-conservation-tankers",
       title: "IoT-Based Water Conservation and Safety Monitoring System for Road Tankers",
-      shortDesc: "A smart monitoring and control system designed to prevent water loss during transportation caused by sloshing, leakage, and manual outlet errors.",
-      tags: ["ESP32", "IoT", "Sensors", "Water Conservation"],
-      overview: "Water distribution using road tankers often suffers from unaccounted losses during transit. This project implements a robust IoT-enabled system that monitors the volume and state of water in real-time, detecting leaks, sloshing-induced overflows, and unauthorized manual valve openings.",
-      problemStatement: "During transportation of liquids, significant water loss occurs due to structural leakages, mechanical sloshing causing spillage, and human errors (valves left open). Across single transit trips, up to 50 liters can be wasted per tanker, causing utility inefficiencies.",
+      shortDesc: "An IoT-enabled smart monitoring and automation system that minimizes water spillage, prevents leakage, automates tanker operations, and improves driver safety using ESP32, multiple sensors, and real-time monitoring.",
+      achievement: "🏆 1st Prize Winner – Ambition 2.0 National Hackathon | BIT Bengaluru. Awarded First Place for designing and prototyping an IoT-Based Water Conservation and Safety Monitoring System for Road Tankers, contributing to sustainable engineering solutions, and smart transportation infrastructure through real-time monitoring, automated leakage prevention, driver safety, and cloud-enabled IoT telemetry.",
+      tags: [
+  "ESP32",
+  "IoT",
+  "Embedded Systems",
+  "Water Conservation",
+  "Automation",
+  "Sensors",
+  "Arduino",
+  "Web Dashboard"
+],
+      overview: "This project presents an IoT-Based Water Conservation and Safety Monitoring System designed for road water tankers. The system continuously monitors water level, internal pressure, outlet leakage, temperature, motion, and tanker conditions using multiple sensors connected to an ESP32 controller. It automatically controls the tanker lid, outlet valve, water pump, and safety alerts to prevent water loss during filling, transportation, and delivery. Real-time monitoring through a web dashboard improves operational efficiency, reduces manual intervention, and enhances driver safety.",
+      problemStatement: "Water tankers experience significant water loss due to open lids, pressure buildup, sloshing during vehicle movement, leaking outlet valves, and manual operational errors. These issues waste nearly 50 liters of water per trip, reduce transportation efficiency, increase maintenance costs, and create safety hazards for both drivers and road users. Existing tanker systems lack intelligent automation for monitoring and preventing these problems.",
       objectives: [
-        "Eliminate transportation-related water spillage and outlet valve leakage.",
-        "Track volume dynamics and notify operations via cloud dashboard.",
-        "Integrate automated actuator control to shut down valves in critical status.",
-        "Secure the outlet point using smart authorization status checks."
-      ],
+  "Prevent water spillage during tanker transportation.",
+  "Automatically control tanker lid based on pressure conditions.",
+  "Detect and eliminate outlet valve leakage.",
+  "Monitor real-time water level during filling operations.",
+  "Automate water pump operation to prevent overflow.",
+  "Improve driver safety using motion and pressure sensing.",
+  "Provide live IoT monitoring through a web-based dashboard.",
+  "Reduce manual intervention and improve water conservation."
+],
       hardwareUsed: [
-        "ESP32 NodeMCU (Central controller with Wi-Fi/Bluetooth)",
-        "HC-SR04 Ultrasonic Distance Sensor (For level measurement)",
-        "YF-S201 Hall Effect Water Flow Sensor (For rate tracking)",
-        "12V Solenoid Valve (For automated flow control)",
-        "MPU6050 Accelerometer/Gyroscope (To measure tanker sloshing and vibrations)",
-        "Buzzer & LED indicators for local alarm systems"
-      ],
+  "ESP32 Development Board",
+  "BMP280 Pressure Sensor",
+  "MPU6050 Accelerometer & Gyroscope",
+  "HC-SR04 Ultrasonic Sensor",
+  "YF-S201 Water Flow Sensor",
+  "DHT11 Temperature Sensor",
+  "PIR Motion Sensor",
+  "SG90 Servo Motor",
+  "12V Solenoid Valve",
+  "Relay Module",
+  "DC Water Pump",
+  "OLED Display",
+  "Push Button",
+  "Power Supply"
+],
       softwareUsed: [
         "Arduino IDE (Firmware coding in C/C++)",
         "Blynk Cloud IoT / Adafruit IO (Dashboard interface)",
@@ -112,26 +134,40 @@ export const resumeData = {
         "C++ Core Embedded Libraries"
       ],
       components: [
-        { name: "ESP32 MCU", role: "Executes control loops, processes sensor pulses, sends telemetry over Wi-Fi." },
-        { name: "Solenoid Valve", role: "Electromechanical actuator that blocks water outlets under alarm conditions." },
-        { name: "Flow Sensor", role: "Measures outflow rate to detect pipeline leakage and calculate volumes." },
-        { name: "Ultrasonic Sensor", role: "Mounted inside the dome to calculate current water volume based on distance measurement." },
-        { name: "MPU6050 Sensor", role: "Monitors vehicle acceleration. Helps filter out level readings affected by sloshing." }
-      ],
-      blockDiagram: "Tanker Tank -> Ultrasonic & MPU6050 Sensors -> ESP32 Microcontroller <- Flow Sensor\nESP32 -> Wi-Fi -> Blynk Cloud Dashboard\nESP32 -> Solenoid Valve Driver -> 12V Solenoid Valve\nESP32 -> Local Buzzer & Warning LED Panel",
-      circuitDiagram: "ESP32 Vin -> 5V Output of Buck Converter\nESP32 GND -> Common Ground\nUltrasonic Trigger -> ESP32 Pin 12 (Output)\nUltrasonic Echo -> ESP32 Pin 13 (Input)\nFlow Sensor Output -> ESP32 Pin 27 (Pulse Interrupt Pin)\nMPU6050 SDA/SCL -> ESP32 Pins 21/22 (I2C interface)\nSolenoid Valve Relay Input -> ESP32 Pin 25 (Digital Output)",
+  {name: "ESP32",role: "Acts as the main controller by collecting sensor data, processing automation logic, and hosting the web dashboard."},
+  {name: "BMP280 Pressure Sensor",role: "Monitors internal tanker pressure to prevent unsafe pressure buildup."},
+  {name: "HC-SR04 Ultrasonic Sensor",role: "Measures water level and automates filling operations."},
+  {name: "MPU6050 Accelerometer",role: "Detects vehicle motion, braking, and sloshing conditions."},
+  {name: "Flow Sensor",role: "Measures outlet flow and detects leakage."},
+  {name: "Servo Motor",role: "Automatically opens and closes the tanker lid."},
+  {name: "Solenoid Valve",role: "Provides leak-proof outlet water control."},
+  {name: "Relay Module",role: "Controls the water pump and outlet valve."}
+],
+      blockDiagram: "System Architecture Diagram",
+      circuitDiagram: "",
       workingPrinciple: "The ultrasonic sensor measures the air gap inside the tank, calculating water depth. The MPU6050 monitors the tanker's motion. If high deceleration is detected (causing sloshing), the system waits for the water surface to stabilize before logging level readings to prevent false alarms. The flow sensor monitors outflow. If water flow is registered without user authorization (registered on the Cloud), the system marks it as an error, automatically triggers the 12V Solenoid Valve to shut the pipeline, and transmits an alert notification to the cloud dashboard.",
-      results: "Physical prototyping showed that the system successfully detected simulated pipeline cracks, closed the solenoid valve within 1.2 seconds of unauthorized flow, and logged stable volume readings. In trial conditions, it saved up to 50 liters of water per trip.",
+      results: "The developed prototype successfully monitored tanker conditions in real time and automatically controlled the lid, pump and outlet valve. The system accurately detected water level, leakage, pressure changes and tanker movement while providing live data through the ESP32 web dashboard. The prototype demonstrated effective reduction of water loss, improved operational safety and minimized manual intervention.",
       challenges: [
-        "Calibrating ultrasonic sensors due to echoing and water surface turbulence (sloshing). Resolved by applying a rolling-average digital filter in the ESP32 code combined with MPU6050 tilt angles.",
-        "Powering the 12V Solenoid Valve from a vehicle's battery. Resolved by designing an optocoupled relay circuit to isolate digital and power grounds."
-      ],
+    "Integrating multiple sensors simultaneously on the ESP32 without communication conflicts.",
+    "Achieving accurate water level measurement during tanker movement.",
+    "Calibrating the flow sensor for precise leakage detection.",
+    "Synchronizing real-time sensor updates with the web dashboard.",
+    "Optimizing Wi-Fi communication while maintaining stable sensor readings."
+],
       futureScope: [
-        "Integrate GPS module to log exactly where leakages occur on the transit map.",
-        "Add solar panels on the tanker roof for self-sustaining battery operation.",
-        "Employ cellular GSM module to ensure real-time telemetry outside Wi-Fi zones."
-      ],
-      gallery: [],
+    "Integrate GPS tracking for live tanker location monitoring.",
+    "Add GSM/4G communication for remote alerts without Wi-Fi.",
+    "Implement AI-based leakage prediction and preventive maintenance.",
+    "Develop a dedicated Android/iOS mobile application.",
+    "Integrate cloud analytics for fleet-wide tanker monitoring.",
+    "Support multiple tanker management through a centralized dashboard."
+],
+
+      gallery: ["/projects/water-conservation/hero.jpg",
+  "/projects/water-conservation/prototype.jpg",
+  "/projects/water-conservation/block-diagram.jpg",
+  "/projects/water-conservation/overflow.jpg",
+  "/projects/water-conservation/tanker.jpg"],
       demoVideo: "",
       githubRepo: ""
     },
@@ -369,10 +405,20 @@ export const resumeData = {
 
   internship: {
     title: "IoT & Robotics Industrial Training",
-    organization: "Rinex Technologies",
-    grade: "Grade A+",
-    details: "Successfully completed intensive hands-on Industrial Training. Developed critical practical knowledge of microcontroller programming (Arduino Uno, ESP32), sensor interfacing (digital/analog), embedded electronics design, serial communication protocols, and industrial IoT dashboard application deployment."
-  },
+
+    organization: "Rinex Organization",
+
+    duration: "2025",
+
+    grade: "A+",
+
+    certificateId: "ITR25-RNC0-9988",
+
+    certificate: "/certificates/rinex-certificate.jpg",
+
+    details:
+        "Successfully completed an Online Industrial Training Program in IoT and Robotics offered by Rinex Organization. Gained practical knowledge of embedded systems, Arduino programming, sensor interfacing, IoT concepts, and automation through structured online learning, practical exercises, and project-based activities. Successfully completed the program with Grade A+."
+},
 
   certifications: [
     {

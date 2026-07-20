@@ -81,8 +81,13 @@ export default function Navbar() {
               <div className="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-mono text-cyan-400 tracking-wider font-bold">KBJ // SYSTEM</span>
-              <span className="text-xs text-gray-400 tracking-tight">K Bhavana Jayaram</span>
+              <span className="text-sm font-mono text-cyan-400 tracking-wider font-bold">
+    KBJ TECH
+</span>
+
+<span className="text-xs text-gray-400 tracking-tight">
+    Embedded Systems • IoT • AI
+</span>
             </div>
           </Link>
 

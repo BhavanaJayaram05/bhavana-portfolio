@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, Award, Cpu, ShieldCheck } from 'lucide-react';
+import { Briefcase, Award, ShieldCheck } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 
 export default function Internship() {
@@ -54,16 +54,67 @@ export default function Internship() {
             </div>
           </div>
 
-          {/* Details & Syllabus */}
-          <div className="space-y-4">
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-sans">
-              {internship.details}
-            </p>
+          {/* Details & Certificate */}
+<div className="grid lg:grid-cols-[1fr_0.9fr] gap-4 items-start">
+            <div className="space-y-2">
+
+  <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-sans">
+  {internship.details}
+</p>
+
+  <div className="grid grid-cols-2 gap-4">
+
+    <div className="bg-gray-900/60 border border-white/5 rounded-lg p-3">
+      <p className="text-cyan-400 text-xs uppercase">
+        Duration
+      </p>
+
+      <p className="text-white">
+        {internship.duration}
+      </p>
+    </div>
+
+    <div className="bg-gray-900/60 border border-white/5 rounded-lg p-3">
+      <p className="text-cyan-400 text-xs uppercase">
+        Certificate ID
+      </p>
+
+      <p className="text-white">
+        {internship.certificateId}
+      </p>
+    </div>
+
+  </div>
+
+</div>
+{/* Certificate Preview */}
+<div className="space-y-4">
+
+  <h4 className="text-cyan-400 font-mono text-sm uppercase tracking-wider">
+    📜 Internship Certificate
+</h4>
+
+  <a
+  href={internship.certificate}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="block rounded-xl overflow-hidden border border-cyan-500/20 hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(6,182,212,0.35)] transition-all duration-300"
+>
+  <img
+    src={internship.certificate}
+    alt="Rinex Internship Certificate"
+    className="w-full rounded-lg hover:scale-[1.02] transition duration-300"
+  />
+</a>
+
+  
+
+</div>
 
             <div className="pt-2">
               <p className="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-3">
-                // COMPLETED_DEVELOPMENT_SYLLABUS
-              </p>
+  // KEY LEARNING OUTCOMES
+</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
                 {[
                   "Microcontroller Programming (Arduino & ESP32)",
@@ -71,7 +122,7 @@ export default function Internship() {
                   "Serial Communication Protocols (I2C, UART)",
                   "IoT Cloud Integration & Dashboard Creation",
                   "Embedded C System Coding & Debugging",
-                  "Robotics Control Loop Architectures"
+                  "Robotics Fundamentals & Automation"
                 ].map((item, idx) => (
                   <div 
                     key={idx} 

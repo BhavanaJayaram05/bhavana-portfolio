@@ -84,6 +84,16 @@ export default function ProjectDetailPage() {
           <p className="text-gray-400 text-sm sm:text-base max-w-4xl leading-relaxed">
             {project.shortDesc}
           </p>
+          {project.achievement && (
+  <div className="mt-6 rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4">
+    <h3 className="text-yellow-400 font-bold text-lg">
+      🏆 Award & Recognition
+    </h3>
+    <p className="mt-2 text-gray-200 leading-relaxed">
+      {project.achievement}
+    </p>
+  </div>
+)}
         </motion.div>
 
         {/* Dashboard Grid Layout */}
@@ -170,9 +180,13 @@ export default function ProjectDetailPage() {
               <h3 className="text-lg font-mono font-bold text-white border-b border-gray-900 pb-2">
                 5. System Architecture & Block Diagram
               </h3>
-              <div className="bg-gray-950/80 border border-cyan-500/10 rounded-lg p-5 font-mono text-[10px] sm:text-xs text-cyan-300 overflow-x-auto whitespace-pre">
-                {project.blockDiagram}
-              </div>
+              <div className="rounded-lg overflow-hidden border border-cyan-500/20">
+    <img
+        src="/projects/water-conservation/block-diagram.jpg"
+        alt="System Architecture Diagram"
+        className="w-full object-contain"
+    />
+</div>
               <p className="text-[10px] text-gray-500 font-mono italic">
                 * Note: Diagram represented as textual wiring connections mapping input nodes to microcontroller outputs.
               </p>
@@ -306,22 +320,33 @@ export default function ProjectDetailPage() {
               </div>
             </div>
 
-            {/* Section 13: Image Gallery Placeholder */}
-            <div className="glass-panel rounded-xl p-5 border border-cyan-500/10 text-center space-y-3">
-              <div className="flex justify-between items-center border-b border-gray-900 pb-2">
-                <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase">
-                  13. Image Gallery
-                </span>
-                <span className="text-[9px] font-mono text-gray-500">ASSETS_EMPTY</span>
-              </div>
-              <div className="h-28 rounded bg-gray-950 border border-dashed border-gray-800 flex flex-col justify-center items-center text-gray-500 gap-1.5 p-4">
-                <ImageIcon className="w-5 h-5 text-gray-600" />
-                <span className="text-[10px] font-mono font-bold text-gray-600">PHOTO_STATIC_PLACEHOLDER</span>
-                <span className="text-[9px] font-sans text-gray-500 text-center">
-                  Image files will be linked here once captured from physically wired hardware.
-                </span>
-              </div>
-            </div>
+            {/* Section 13: Image Gallery */}
+
+<div className="glass-panel rounded-xl p-5 border border-cyan-500/10 space-y-4">
+  <h4 className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider border-b border-gray-900 pb-2">
+    13. Project Gallery
+  </h4>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {project.gallery.map((image, index) => (
+      <div
+        key={index}
+        className="rounded-xl overflow-hidden border border-cyan-500/20"
+      >
+        <img
+          src={image}
+          alt={`Project ${index + 1}`}
+          className="w-full h-64 object-cover"
+          onError={(e) => {
+            console.log("Image failed:", image);
+            e.target.style.border = "3px solid red";
+          }}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
 
             {/* Section 14: Demo Video Placeholder */}
             <div className="glass-panel rounded-xl p-5 border border-cyan-500/10 text-center space-y-3">
